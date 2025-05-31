@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Administrador de Inventario</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans antialiased">
+
+    <div class="container mx-auto px-4 py-10">
+        <!-- Título principal -->
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-4xl font-extrabold text-gray-800">📦 Administrador de Inventario</h1>
+            <a href="/create" class="bg-blue-600 text-white px-5 py-2 rounded shadow hover:bg-blue-700 transition">
+        + Agregar Producto
+      </a>
+        </div>
+
+        <!-- Tabla -->
+        <div class="overflow-x-auto bg-white rounded-lg shadow">
+            <table class="min-w-full divide-y divide-gray-200 text-sm">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-6 py-3 text-left font-semibold text-gray-600 uppercase tracking-wider">Nombre</th>
+                        <th class="px-6 py-3 text-left font-semibold text-gray-600 uppercase tracking-wider">Descripción</th>
+                        <th class="px-6 py-3 text-left font-semibold text-gray-600 uppercase tracking-wider">Stock</th>
+                        <th class="px-6 py-3 text-center font-semibold text-gray-600 uppercase tracking-wider">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    <% if (productos.length === 0) { %>
+                        <tr>
+                            <td colspan="4" class="text-center px-6 py-6 text-gray-500">
+                                No hay productos en el inventario actualmente.
+                            </td>
+                        </tr>
+                        <% } else { %>
+                            <% productos.forEach(producto => { %>
+                                <tr class="hover:bg-gray-50 transition">
+                                    <td class="px-6 py-4 text-gray-800 font-medium">
+                                        <%= producto.nombre %>
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-700">
+                                        <%= producto.descripcion %>
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-700">
+                                        <%= producto.stock %>
+                                    </td>
+                                    <td class="px-6 py-4 text-center">
+                                        <a href="/edit/<%= producto._id %>" class="inline-block bg-yellow-400 text-white px-3 py-1 rounded hover:bg-yellow-500 mr-2">
+                    Editar
+                  </a>
+                                        <form action="/delete/<%= producto._id %>?_method=DELETE" method="POST" class="inline" onsubmit="return confirm('¿Eliminar este producto del inventario?')">
+                                            <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">
+                      Eliminar
+                    </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</body>
+
+</html>

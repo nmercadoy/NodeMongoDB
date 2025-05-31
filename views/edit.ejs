@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Producto</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="/js/validation.js"></script>
+</head>
+
+<body class="bg-gray-100 font-sans">
+
+    <div class="max-w-2xl mx-auto mt-10 p-6 bg-white rounded shadow">
+        <h1 class="text-2xl font-bold text-gray-700 mb-6">Editar producto</h1>
+
+        <form action="/edit/<%= producto._id %>?_method=PUT" method="POST" onsubmit="return validarFormulario()">
+            <div class="mb-4">
+                <label class="block text-gray-700">Nombre del producto</label>
+                <input type="text" id="nombre" name="nombre" value="<%= producto.nombre %>" onkeypress="return soloLetras(event)" class="w-full border border-gray-300 p-2 rounded mt-1" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-gray-700">Descripción</label>
+                <input type="text" id="descripcion" name="descripcion" value="<%= producto.descripcion %>" class="w-full border border-gray-300 p-2 rounded mt-1" required>
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-gray-700">Stock</label>
+                <input type="number" id="stock" name="stock" value="<%= producto.stock %>" min="0" class="w-full border border-gray-300 p-2 rounded mt-1" required>
+            </div>
+
+            <div class="flex justify-between">
+                <a href="/" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600">Cancelar</a>
+                <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">Actualizar</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>
