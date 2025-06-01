@@ -6,24 +6,24 @@ const path = require('path');
 
 const app = express();
 
-// Conexión a MongoDB
-mongoose.connect('mongodb://localhost/inventario', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
 
-// Middlewares
+mongoose.connect('mongodb://localhost/inventario');
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-// Motor de vistas
+
 app.set('view engine', 'ejs');
 
-// Modelo
+
+
 const Product = require('./models/Product');
 
-// Rutas
+
 app.get('/', async(req, res) => {
     const productos = await Product.find();
     res.render('list', { productos });
@@ -40,6 +40,7 @@ app.post('/create', async(req, res) => {
         res.redirect('/');
     } catch (err) {
         res.send('Error al crear producto: ' + err.message);
+
     }
 });
 
@@ -59,7 +60,7 @@ app.delete('/delete/:id', async(req, res) => {
     res.send('Producto eliminado exitosamente');
 });
 
-// Servidor
+
 app.listen(3000, () => {
     console.log('Servidor corriendo en http://localhost:3000');
 });

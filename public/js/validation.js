@@ -10,7 +10,7 @@ function soloLetras(e) {
 }
 
 function bloquearNegativos(e) {
-    // Bloquea el signo "-", "e" y "E"
+
     if (e.key === '-' || e.key === 'e' || e.key === 'E') {
         e.preventDefault();
         return false;
@@ -24,7 +24,7 @@ function validarFormulario() {
 
     const errores = [];
 
-    // Validaciones
+
     if (!nombre) {
         errores.push("El campo nombre es obligatorio.");
     }
@@ -46,7 +46,7 @@ function validarFormulario() {
         }
     }
 
-    // Mostrar todos los errores en un solo alert
+
     if (errores.length > 0) {
         alert(errores.join("\n"));
         return false;
